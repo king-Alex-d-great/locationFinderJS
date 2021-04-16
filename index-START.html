@@ -1,40 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Type Ahead 👀</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Type Ahead 👀</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <form class="search-form">
+      <input type="text" class="search" placeholder="City or State" />
+      <ul class="suggestions">
+        <li>Filter for a city</li>
+        <li>or a state</li>
+      </ul>
+    </form>
+    <script>
+      const endpoint =
+        "https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json";
 
-  <form class="search-form">
-    <input type="text" class="search" placeholder="City or State">
-    <ul class="suggestions">
-      <li>Filter for a city</li>
-      <li>or a state</li>
-    </ul>
-  </form>
-<script>
-const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+      let cities = [];
 
-let cities = [];
+      fetch(endpoint)
+        .then((info) => info.json())
+        .then((data) => cities.push(...data));
 
-fetch(endpoint)
-.then(info => info.json())
-.then(data => cities.push(...data))
+      function getMatches(wordToMatch, cities) {
+        let regex = new RegExp(wordToMatch, "ig");
+        return cities.filter(
+          (places) => places.city.match(regex) || places.state.match(regex)
+        );
+      }
 
-function getMatches(wordToMatch, cities) {
-let regex = new RegExp(wordToMatch, "ig")                
- cities.filter(places => regex)
-}
+      function showMatches() {
+        let suggestions = document.querySelector(".suggestions");
+        let showcase = getMatches(this.value, cities);
+        let newHtml = showcase.map(
+          (place) => ` <li> <span> ${place.city}  ${place.state} </span> </li> `
+        );
+        suggestions.innerHTML = newHtml;
+      }
 
-function showMatches() {
-console.log(this);
-}
-
-let input = document.querySelector("search");
-input.addEventListener("change", showMatches);
-
-</script>
-</body>
+      let input = document.querySelector(".search");
+      input.addEventListener("keyup", showMatches);
+    </script>
+  </body>
 </html>
