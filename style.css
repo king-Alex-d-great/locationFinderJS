@@ -1,9 +1,10 @@
 html {
   box-sizing: border-box;
-  background: #ffc600;
-  font-family: 'helvetica neue';
+  background: #1900ff;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   font-size: 20px;
   font-weight: 200;
+  color: black;
 }
 
 *, *:before, *:after {
@@ -43,7 +44,7 @@ input.search {
 }
 
 .suggestions li {
-  background: white;
+  background-color: black;
   list-style: none;
   border-bottom: 1px solid #D8D8D8;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.14);
@@ -69,6 +70,6 @@ span.population {
   font-size: 15px;
 }
 
-.hl {
+.highlight{
   background: #ffc600;
 }
