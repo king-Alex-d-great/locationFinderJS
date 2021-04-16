@@ -33,9 +33,21 @@
       function showMatches() {
         let suggestions = document.querySelector(".suggestions");
         let showcase = getMatches(this.value, cities);
-        let newHtml = showcase.map(
-          (place) => ` <li> <span> ${place.city}  ${place.state} </span> </li> `
-        );
+
+        let newHtml = showcase.map((place) => {
+          let regex = new RegExp(this.value, "ig");
+          let newCity = place.city.replace(
+            regex,
+            `<span class="highlight"> ${this.value} </span>`
+          );
+          let newState = place.state.replace(
+            regex,
+            `<span class="highlight"> ${this.value} </span>`
+          );
+
+          return ` <li> <span> ${newCity} , ${place.state} </span>
+             <span> population: ${place.population}</li> `;
+        });
         suggestions.innerHTML = newHtml;
       }
 
