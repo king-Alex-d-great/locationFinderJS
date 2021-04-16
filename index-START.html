@@ -7,11 +7,12 @@
   </head>
   <body>
     <form class="search-form">
-      <input type="text" class="search" placeholder="City or State" />
-      <ul class="suggestions">
-        <li>Filter for a city</li>
-        <li>or a state</li>
-      </ul>
+      <input
+        type="text"
+        class="search"
+        placeholder="Search for a state or city"
+      />
+      <ul class="suggestions"></ul>
     </form>
     <script>
       const endpoint =
@@ -44,15 +45,21 @@
             regex,
             `<span class="highlight"> ${this.value} </span>`
           );
-
           return ` <li> <span> ${newCity} , ${place.state} </span>
              <span> population: ${place.population}</li> `;
         });
         suggestions.innerHTML = newHtml;
       }
 
+      function resetAll() {
+        console.log(this);
+      }
+
       let input = document.querySelector(".search");
       input.addEventListener("keyup", showMatches);
+     
+
+      //Add a function that resets the page 
     </script>
   </body>
 </html>
